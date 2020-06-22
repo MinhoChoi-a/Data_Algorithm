@@ -2,7 +2,22 @@ import java.util.*;
 import java.io.*;
 
 public class weekOneMaxTwo {
-	    static long getMaxPairwiseProduct(int[] numbers) {
+	    
+	 static long getMaxPairwiseProductNaive(int[] numbers) {
+	        long max_product = 0;
+	        int n = numbers.length;
+
+	        for (int first = 0; first < n; ++first) {
+	            for (int second = first + 1; second < n; ++second) {
+	                max_product = Math.max(max_product,
+	                    ((long)numbers[first] * (long)numbers[second]));
+	            }
+	        }
+
+	        return max_product;
+	    }
+	
+	static long getMaxPairwiseProductFast(int[] numbers) {
 	        long max_product = 0;
 	        int n = numbers.length;
 	        int maxOne=0;
@@ -36,7 +51,7 @@ public class weekOneMaxTwo {
 	        for (int i = 0; i < n; i++) {
 	            numbers[i] = scanner.nextInt();
 	        }
-	        System.out.println(getMaxPairwiseProduct(numbers));
+	        System.out.println(getMaxPairwiseProductFast(numbers));
 	    }
 
 	    static class FastScanner {
