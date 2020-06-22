@@ -1,32 +1,31 @@
 import java.util.*;
 import java.io.*;
 
-public class W1_MaxTwo {
+public class weekOneMaxTwo {
 	    static long getMaxPairwiseProduct(int[] numbers) {
 	        long max_product = 0;
 	        int n = numbers.length;
-	        int a,b;
-	        long maxOne, maxTwo;
+	        int maxOne=0;
+	        int maxTwo=0;
 	        
-	        for (int first = 0; first < n; ++first) {
-	            	a = numbers[first];
-	            	b = numbers[first+1];
+	        for (int first = 0; first < n; first++) {
 	            	
-	            	if (a>b)
-	            	{
-	            		maxOne = a;
-	            	}
-	            	
-	            	else
-	            	{
-	            		maxOne=b;
-	            	}
-	            	long value = (long)numbers[first] * (long)numbers[second]; 
-	            	max_product = Math.max(max_product,
-	                    value);
+	        	if (maxOne < numbers[first])
+	            {
+	            	maxOne = numbers[first];
 	            }
 	        }
-
+	        
+	        for (int first = 0; first < n; first++) {
+            	
+        		if (maxTwo < numbers[first] && numbers[first] != maxOne)
+            	{
+            		maxTwo = numbers[first];
+            	}
+	        }
+	        
+	        max_product = (long)maxOne * (long)maxTwo;
+	        
 	        return max_product;
 	    }
 
@@ -71,4 +70,4 @@ public class W1_MaxTwo {
 
 	}
 
-}
+
