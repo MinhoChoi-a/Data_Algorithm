@@ -22,20 +22,26 @@ public class weekOneMaxTwo {
 	        int n = numbers.length;
 	        int maxOne=0;
 	        int maxTwo=0;
+	        int maxIndex = 0;
 	        
 	        for (int first = 0; first < n; first++) {
-	            	
-	        	if (maxOne < numbers[first])
+	            
+	        	int a = numbers[first];
+	        	
+	        	if (maxOne < a)
 	            {
-	            	maxOne = numbers[first];
+	            	maxOne = a;
+	            	maxIndex = first;
 	            }
 	        }
 	        
 	        for (int first = 0; first < n; first++) {
             	
-        		if (maxTwo < numbers[first] && numbers[first] != maxOne)
+        		int b = numbers[first];
+	        	
+	        	if (maxTwo < b && maxIndex != first)
             	{
-            		maxTwo = numbers[first];
+            		maxTwo = b;
             	}
 	        }
 	        
