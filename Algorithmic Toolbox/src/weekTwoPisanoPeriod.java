@@ -1,13 +1,10 @@
 //Fibonacci Number Again
 
-import java.util.Scanner;
+import java.util.*;
 
 public class weekTwoPisanoPeriod {
-  static long pisano(int a, int b) {
+  static long pisano(long a, long b) {
 	  
-	  if (a <= 1)
-		return a;
-		  
 	  long[] list = new long[a];
 	  
 	  list[0] = 1;
@@ -36,7 +33,21 @@ public class weekTwoPisanoPeriod {
 		i++;
 		  
 	  }
+	
+	  if(mListLength ==0)
+	  {
+	  long previous = 1;
+      long current  = 1;
+
+      for (i = 0; i < a - 1; ++i) {
+          long tmp_previous = previous % b;
+          previous = current % b;
+          current = (tmp_previous + current) % b;
+      	}
 	  
+	  return previous;
+	  }
+	  	  
 	  long[] mList = new long[mListLength];
 		
 	  for(int n=0; n<mListLength; n++) {
@@ -51,8 +62,8 @@ public class weekTwoPisanoPeriod {
   
   public static void main(String args[]) {
     Scanner scanner = new Scanner(System.in);
-    int a = scanner.nextInt();
-    int b = scanner.nextInt();
+    long a = scanner.nextLong();
+    long b = scanner.nextLong();
 
     System.out.println(pisano(a, b));
   }
