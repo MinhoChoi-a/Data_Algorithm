@@ -3,7 +3,7 @@
 import java.util.Scanner;
 
 public class weekTwoLCM {
-  static double lcm(double a, double b) {
+  static int lcm(double a, double b) {
     double d=2; //factorization number
     double f,ff; //rest
     double c=1;
@@ -12,7 +12,12 @@ public class weekTwoLCM {
     boolean nextLoop = true;
     
     if(a==b)
-    	return a;
+    	return (int)a;
+    
+    else if(a<=3 && b<=3)
+    {
+    	return (int)(a*b);
+    }
     
     while(loop)
     {
@@ -89,7 +94,7 @@ public class weekTwoLCM {
         }
     }
     
-    return leastCommon;
+    return (int)leastCommon;
      
   }
 
