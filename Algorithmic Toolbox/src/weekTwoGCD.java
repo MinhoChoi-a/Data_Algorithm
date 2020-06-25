@@ -1,17 +1,29 @@
 import java.util.Scanner;
 
 public class weekTwoGCD {
-  private static int gcd_naive(int a, int b) {
+  static int gcd_naive(int a, int b) {
     int current_gcd = 1;
+    int numberA;
+    int numberB;
+    int d=1;
     
-    for(int d = 2; d <= a && d <= b; ++d) {
-      if (a % d == 0 && b % d == 0) {
-        if (d > current_gcd) {
-          current_gcd = d;
-        }
-      }
+    if (a>b) {
+    numberA = a;
+    numberB = b; }
+    
+    else {
+    numberA = b;
+    numberB = a; }
+    
+    while(!(d== 0))
+    {
+    	d = numberA%numberB;
+    	numberA = numberB;
+    	numberB = d;
     }
-
+    
+    current_gcd = numberA;
+   
     return current_gcd;
   }
 
