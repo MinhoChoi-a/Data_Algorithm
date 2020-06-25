@@ -1,69 +1,54 @@
-//Fibonacci Number Again
-
 import java.util.*;
+import java.math.*;
 
 public class weekTwoPisanoPeriod {
-  static long pisano(long a, long b) {
+  static int pisano(long a, int b) {
 	  
-	  long[] list = new long[a];
+	  ArrayList<Integer> mList = new ArrayList<>();
 	  
-	  list[0] = 1;
-	  list[1] = 1;
-	  
-	  long q,w;
-	  
-	  int i =2;
-	  
-	  int mListLength=0;
-	  
-	  boolean loop = true;
-	  while(i < a && loop)
-	  {
-		list[i] = list[i-1] + list[i-2];
-		
-		w = list[i-1]%b;
-		q = list[i]%b;
-		
-		if (w==0 && q==1)
-		{
-			mListLength = i;
-			loop = false;
-		}
-		
-		i++;
+	  	  int previous = 1;
+		  int current  = 1;
+		  int i = 0;
+		  mList.add(1);
 		  
-	  }
-	
-	  if(mListLength ==0)
-	  {
-	  long previous = 1;
-      long current  = 1;
-
-      for (i = 0; i < a - 1; ++i) {
-          long tmp_previous = previous % b;
+		  int c = 0;
+		  
+		  int result;
+		  
+      for (i = 2; i < a; ++i) {
+          int tmp_previous = previous % b;
           previous = current % b;
           current = (tmp_previous + current) % b;
-      	}
+      	
+          mList.add(previous);
+          
+          if(previous==0 && current==1) {
+        	  c=1;
+        	  break;
+        	}
+       }
 	  
-	  return previous;
-	  }
-	  	  
-	  long[] mList = new long[mListLength];
-		
-	  for(int n=0; n<mListLength; n++) {
-			mList[n] = list[n]%b;
-		}
-		
-	  int n = a%mListLength;
-		
-	return mList[n-1];
-  }
+      if(c==1) {
+		  int n = (int)(a%mList.size());
+		  if(n==0)
+		  {
+			  result=mList.get(mList.size()-1);
+		  }
+		  
+		  else {
+		  result=mList.get(n-1);
+		  }
+      }
+      else
+    	  result=current;
   
+      return result;
+  }
   
   public static void main(String args[]) {
     Scanner scanner = new Scanner(System.in);
     long a = scanner.nextLong();
-    long b = scanner.nextLong();
+    int b = scanner.nextInt();
 
     System.out.println(pisano(a, b));
   }

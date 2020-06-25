@@ -6,7 +6,7 @@ class weekTwoLCMTest {
 
 	@Test
 	void test() {
-		assertEquals(26, weekTwoPisanoPeriod.pisano(2816213588, 239), "test");
+		assertEquals(25, weekTwoPisanoPeriod.pisano(9999999999999L,2), "test");
 	}
 
 }
