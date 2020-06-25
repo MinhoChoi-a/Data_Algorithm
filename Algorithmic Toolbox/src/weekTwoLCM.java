@@ -3,105 +3,37 @@
 import java.util.Scanner;
 
 public class weekTwoLCM {
-  static int lcm(double a, double b) {
-    double d=2; //factorization number
-    double f,ff; //rest
-    double c=1;
-    double leastCommon = 0;
-    boolean loop = true;
-    boolean nextLoop = true;
-    
-    if(a==b)
-    	return (int)a;
-    
-    else if(a<=3 && b<=3)
-    {
-    	return (int)(a*b);
-    }
-    
-    while(loop)
-    {
-    	f= a%d;
-    	ff= b%d;
-    	
-    	if(f==0 && ff==0)
-    	{
-    		a = a/d;
-	    	b = b/d;
-	    	c *= d;
-    	}
-    	
-    	else
-    	{
-    		d++;
-    	}
-    	
-    	if(d==4)
-    		loop = false;
-    	
-    	else if(a==1 || b==1) {
-    		
-    		loop = false;
-    	 	
-    		if(a==1) 
-    			leastCommon =  c*b*d;	
-    			    
-    		else
-    			leastCommon = c*a*d;
-    	}
-    }
-    
-    if(leastCommon==0) {
-    	
-    	while(nextLoop)
-        {
-        	if(d%2==0 || d%3==0)
-        		d++;
-	    	
-        	else {
-	        	f= a%d;
-	        	ff= b%d;
-	        	
-	        	if(a==d || b==d)
-	        	{
-	        		a = a/d;
-	    	    	b = b/d;
-	    	    	c *= d;
-	        	}
-	        	
-	        	else if(f==0 && ff==0)
-	        	{
-	        		a = a/d;
-	    	    	b = b/d;
-	    	    	c *= d;
-	        	}
-	        	
-	        	else {
-	        		d++;
-	        	}
-	        	
-	        	if(a==1 || b==1) {
-	        		
-	        		nextLoop = false;
-	        	 	
-	        		if(a==1) 
-	        			leastCommon =  c*b*d;	
-	        			    
-	        		else
-	        			leastCommon = c*a*d;
-	        	}
-        	}
-        }
-    }
-    
-    return (int)leastCommon;
-     
-  }
+  static long lcm(int a, int b) {
+	  
+	  	long current_gcd = 1;
+	    int numberA;
+	    int numberB;
+	    int d=1;
+	    
+	    if (a>b) {
+	    numberA = a;
+	    numberB = b; }
+	    
+	    else {
+	    numberA = b;
+	    numberB = a; }
+	    
+	    while(!(d== 0))
+	    {
+	    	d = numberA%numberB;
+	    	numberA = numberB;
+	    	numberB = d;
+	    }
+	    
+	    current_gcd = (long)numberA;
+	   
+	    return current_gcd*(long)((a/current_gcd)*(b/current_gcd));
+	  }
 
   public static void main(String args[]) {
     Scanner scanner = new Scanner(System.in);
-    double a = scanner.nextDouble();
-    double b = scanner.nextDouble();
+    int a = scanner.nextInt();
+    int b = scanner.nextInt();
 
     System.out.println(lcm(a, b));
   }
