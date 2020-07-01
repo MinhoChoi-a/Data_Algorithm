@@ -3,31 +3,53 @@ import java.util.Scanner;
 public class weekThreeCarFuel {
 	 
 	static int min_refills(int dist, int tank, int stops[]) {
-		    
-		int stop=0;
-		int num=0;
-		boolean loop = true;
-		int t=1;
 		
-		for(int i =0; i < stops.length; i++) {
+		int num=0;
+		int lastStop=0;
+		int d = dist;
+		int c = 0;
+		
+		boolean loop = true;
+		
+		while(loop) {
 			
-			if(stops[i] - stop <= tank ) {
+			if (d <= tank) {
+				loop = false;
+			}
+			
+			else if (d > tank) {
 				
-				while(loop) {
-					if(stops[i+t] - stop > tank)
-					{
-						stop = stops[i+t-1];
-						num++;
-						loop = false;
+				if(c == stops.length) {
+					num = -1;
+					loop = false;					
+				}
+				
+				else if (stops[c] - lastStop <= tank) {
+					
+					int i=1;
+					
+					while(c+i < stops.length && stops[c+i] - lastStop <= tank) {
+						i++;
 					}
-				t++;
+					if( c+i > stops.length) {
+						c = c+i;
+					}
+					
+					else {
+						lastStop = stops[c+i-1];
+						c = c+i;
+						d = d - tank;
+						num++;
+					}
+				}
+				
+				else if (stops[c] - lastStop > tank) {
+					num = -1;
+					loop = false;
 				}
 			}
-			
-			else if(stops[i] - stop > tank) {
-				return -1;
-			}
 		}
+		
 		return num;
 	}
 		    
