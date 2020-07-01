@@ -16,23 +16,24 @@ public class weekFourBinary {
 		
 		boolean loop = true;
 		
-		while(loop && m >= l && m <= h) {
+		while(loop && l <= h) {
 			
-			 m = (h-l)/2 + 1;
-		
+			m = l + (h-l)/2;
+			
 			if(b == a[m]) {
 				loop = false;
 				p = m;
 			}
-		
+			
 			else if(b < a[m]) {
-				h = m;
+				h = m - 1;
 			}
 			
-			else if(b > a[m]) {
-				l = m;
+			 else if(b > a[m]) {
+				l = m + 1;
 			}
-	}
+			
+		}
 		return p;
 	}
 	public static void main(String[] args) {
