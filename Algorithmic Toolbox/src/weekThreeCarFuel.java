@@ -36,9 +36,9 @@ public class weekThreeCarFuel {
 					}
 					
 					else {
+						d = d - (stops[c+i-1]-lastStop);
 						lastStop = stops[c+i-1];
 						c = c+i;
-						d = d - tank;
 						num++;
 					}
 				}

@@ -7,8 +7,8 @@ class weekThreeCarFuelTest {
 	@Test
 	void test() {
 		
-		int[] array = {1,2,5,9};
-		assertEquals(25, weekThreeCarFuel.min_refills(10, 3, array), "test");
+		int[] array = {200,375,550,750};
+		assertEquals(25, weekThreeCarFuel.min_refills(1200, 400, array), "test");
 	}
 
 }
