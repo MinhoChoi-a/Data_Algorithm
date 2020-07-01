@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class weekThreeDot {
-	static int maxDotProduct(int a[], int b[]) {
+	static long maxDotProduct(int a[], int b[]) {
 		
 		int vBefore, vAfter;
 		boolean loop = true;
@@ -49,12 +49,12 @@ public class weekThreeDot {
 			d++;
 		}
 		
-		int sum=0;
+		long sum=0;
 		
 		i=0;
 		
 		while(i < a.length) {
-			sum += a[i]*b[i];
+			sum += (long)a[i]*(long)b[i];
 			i++;
 		}
 		
