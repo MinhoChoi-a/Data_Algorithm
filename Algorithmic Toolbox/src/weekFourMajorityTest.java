@@ -6,8 +6,8 @@ class weekFourMajorityTest {
 
 	@Test
 	void test() {
-		int[] array = {1,2,3,1};
-		assertEquals(25, weekFourMajority.getMajorityElement(array, 0, 4), "test");
+		int[] array = {2,3,9,2,2};
+		assertEquals(25, weekFourMajority.getMajorityElement(array, 0, array.length), "test");
 	}
 
 }

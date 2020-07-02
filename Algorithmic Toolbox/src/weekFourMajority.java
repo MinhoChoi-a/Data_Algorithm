@@ -30,21 +30,19 @@ public class weekFourMajority {
 			t++;
 		}
 		
-		if(count == 1) {
-			return -1;
-		}
-		
-		else if(count > d) {
+		if(count > d) {
 			return count;
 		}
 		
-		else {
+		else if(count > 1){
 			
 			t=1;
 			
 			while(i+t <= d) {
 				
-				if(check == a[i+t]) {
+				check = a[i+t];
+				
+				if(check == a[i]) {
 					count++;
 					}
 				t++;
