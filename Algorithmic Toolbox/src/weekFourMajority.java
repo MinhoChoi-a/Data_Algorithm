@@ -16,20 +16,21 @@ public class weekFourMajority {
 		
 	for(int i=0 ;i < d;i++) {
 		
-		t=0;
+		count=1;
+		t=1;
 	
-		while(t < d) {
+		while(d+t < right) {
 			
-			t++;
 			check = a[d+t];
 			
 			if(check == a[i]) {
 				count++;
 			}
 			
+			t++;
 		}
 		
-		if(count == 0) {
+		if(count == 1) {
 			return -1;
 		}
 		
@@ -39,13 +40,15 @@ public class weekFourMajority {
 		
 		else {
 			
-			t=0;
+			t=1;
 			
-			while(i+t < d) {
-				t++;
+			while(i+t <= d) {
+				
 				if(check == a[i+t]) {
 					count++;
 					}
+				t++;
+				
 				}
 			
 			if(count > d) {
