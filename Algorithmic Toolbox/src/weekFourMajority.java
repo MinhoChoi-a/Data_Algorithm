@@ -6,6 +6,55 @@ import java.util.StringTokenizer;
 
 public class weekFourMajority {
 
+	
+	static int findCandidate(int a[], int size) {
+		
+		 int maj_index = 0, count = 1; 
+	        int i; 
+	        for (i = 1; i < size; i++)  
+	        { 
+	            if (a[maj_index] == a[i]) 
+	                count++; 
+	            else
+	                count--; 
+	            if (count == 0) 
+	            { 
+	                maj_index = i; 
+	                count = 1; 
+	            } 
+	        } 
+	        return a[maj_index]; 
+	    } 
+	
+	
+	static boolean isMajority(int a[], int size, int cand) { 
+        int i, count = 0; 
+        for (i = 0; i < size; i++)  
+        { 
+            if (a[i] == cand) 
+                count++; 
+        } 
+        if (count > size / 2)  
+            return true; 
+        else
+            return false; 
+    }  
+	
+	
+	static int getMajorityElement(int[] a, int left, int right) {
+		 /* Find the candidate for Majority*/
+        int cand = findCandidate(a, right); 
+  
+        /* Print the candidate if it is Majority*/
+        if (isMajority(a, right, cand)) 
+            return 1;
+        else 
+            return -1; 
+    } 
+	
+	
+	
+	/*
 	static int getMajorityElement(int[] a, int left, int right) {
      
 		int d = right/2;
@@ -62,6 +111,9 @@ public class weekFourMajority {
 		return -1;
 		
 	}
+	
+	*/
+	
     public static void main(String[] args) {
         FastScanner scanner = new FastScanner(System.in);
         int n = scanner.nextInt();
