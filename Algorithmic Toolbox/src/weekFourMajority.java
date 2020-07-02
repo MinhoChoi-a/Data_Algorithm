@@ -12,12 +12,15 @@ public class weekFourMajority {
 		int t = 0;
 		int check=0;
 		int count=0;
+	
+	if(right == 1)
+		return 1;
 		
 		
 	for(int i=0 ;i < d;i++) {
 		
 		count=1;
-		t=1;
+		t=0;
 	
 		while(d+t < right) {
 			
@@ -38,7 +41,7 @@ public class weekFourMajority {
 			
 			t=1;
 			
-			while(i+t <= d) {
+			while(i+t < d) {
 				
 				check = a[i+t];
 				
