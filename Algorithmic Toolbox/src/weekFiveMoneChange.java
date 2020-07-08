@@ -16,7 +16,7 @@ public class weekFiveMoneChange {
     	
     	for(int i =1; i <=m ; i++) {
     		
-    		for(int n=0; n < changeArray.length-1; n++) {
+    		for(int n=0; n < changeArray.length; n++) {
     			
     			if(changeArray[n] <= i) {
     				
