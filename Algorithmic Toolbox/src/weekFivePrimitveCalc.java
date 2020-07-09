@@ -22,6 +22,13 @@ public class weekFivePrimitveCalc {
 		 
 		 for(int i=2; i <=m ; i++) {
 			 
+				if(i % 3 == 0) {
+					x = minArray[i / 3] + 1;
+					if(minArray[i] >= x) {
+						minArray[i] = x;
+					}
+				}
+				
 				if(i % 2 == 0) {
 					x = minArray[i / 2] + 1;
 					if(minArray[i] >= x) {
@@ -29,24 +36,15 @@ public class weekFivePrimitveCalc {
 					}
 				}
 				
-				if(i % 3 == 0) {
-					calcNum[1] = minArray[i / 3] + 1;
+				x = minArray[i-1] + 1;
 					if(minArray[i] >= x) {
 						minArray[i] = x;
 					}
-				}		 
-				
-				x = minArray[i-1] + 1;
-				if(minArray[i] >= x) {
-					minArray[i] = x;
-				}
 				 
 			}	
 			
 		 return minArray[m];
 		}
-		 
-		 
 		 
 	    public static void main(String[] args) {
 	        Scanner scanner = new Scanner(System.in);
