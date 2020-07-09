@@ -20,8 +20,6 @@ public class weekFiveDistance {
 			  dimArray[0][i] = i;  
 		  }
 		  
-		  //need to determine which string is longer
-		  
 		  for(int i=1; i <= tLength; i++) {
 			  
 			  for(int n=1; n<=sLength; n++) {
@@ -31,7 +29,7 @@ public class weekFiveDistance {
 				  dimArray[n][i] = x;
 			  }
 			  
-			  else if(s.charAt(i-1) != t.charAt(i-1)) {
+			  else if(s.charAt(n-1) != t.charAt(i-1)) {
 				  x = dimArray[n-1][i-1] + 1;
 				  dimArray[n][i] = x;
 				  

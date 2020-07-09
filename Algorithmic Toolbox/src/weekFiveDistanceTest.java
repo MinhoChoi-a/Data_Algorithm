@@ -7,8 +7,8 @@ class weekFiveDistanceTest {
 	@Test
 	void test() {
 		
-		String s="ab";
-		String t="ab";
+		String s="aabb";
+		String t="abb";
 		
 		int a = weekFiveDistance.EditDistance(s, t);
 		System.out.println(a);
