@@ -6,7 +6,7 @@ class weekFivePrimitveCalcTest {
 
 	@Test
 	void test() {
-		assertEquals(25, weekFivePrimitveCalc.optimal_sequence(96234), "text");
+		assertEquals(25, weekFivePrimitveCalc.optimal_sequence(1), "text");
 	}
 
 }
