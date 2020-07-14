@@ -6,8 +6,8 @@ class weekSixMaxGoldTest {
 
 	@Test
 	void test() {
-		int[] w= {5,2,4};
-		weekSixMaxGold.optimalWeight(3, w);
+		int[] w= {1,4,8};
+		assertEquals(10, weekSixMaxGold.optimalWeight(10, w), "test");
 	}
 
 }

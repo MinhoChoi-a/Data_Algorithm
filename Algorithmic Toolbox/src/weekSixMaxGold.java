@@ -5,66 +5,45 @@ public class weekSixMaxGold {
 	
 	static int optimalWeight(int W, int[] w) {
 		
-		int n = w.length;
+		int wLength = w.length;
+		int value=0;
 		
-		quickSort(w, 0, n-1);
 		
-		int weight = 0;
-		int[] value = new int[W+1];
-		
-		for(int t = 0; t < value.length-1; t++) {
-			value[t] = 0;
-		}
-		
-		for(weight=1; weight <=W; weight++) {
+		int[][] valueArray = new int[W+1][wLength+1]; 
+		  
+		  for(int i=0; i <= wLength; i++) {
+			  valueArray[0][i] = 0;  
+		  }
+		  
+		  for(int i=0; i <= W; i++) {
+			  valueArray[i][0] = 0;  
+		  }
+		  
 
-			int i =0;
-			while(w[i] <= weight) {
-			
-				if(value[i] <= value[i-1] + w[i] ) {
-					value[i] = value[i-1] + w[i];
-				}
-				i++;
-				}
-			}
-		
-		
-		return value[W+1];
-    }
+		  for(int i=1; i <= wLength; i++) {
+			  
+			  int weight = 1;
+			  
+			  for(int n=1; n<= W; n++) {
+			  
+				  valueArray[n][i] = valueArray[n][i-1];
+				  
+				  if(w[i-1] <= weight) {
+					value = valueArray[n-w[i-1]][i-1] + w[i-1];
+					if(value > valueArray[n][i]) {
+						valueArray[n][i] = value;
+					}
+				  }
+
+				  weight++;
+			  }
+		  }
+		  
+		  return valueArray[W][wLength];
+		 }
 
 	
-	private static int partition2(int[] a, int l, int r) {
-        int x = a[l];
-        int j = l;
-        for (int i = l + 1; i <= r; i++) {
-            if (a[i] <= x) {
-                j++;
-                int t = a[i];
-                a[i] = a[j];
-                a[j] = t;
-            }
-        }
-        int t = a[l];
-        a[l] = a[j];
-        a[j] = t;
-        return j;
-    }
-
-    private static void quickSort(int[] a, int l, int r) {
-        if (l >= r) {
-            return;
-        }
-        int k = random.nextInt(r - l + 1) + l;
-        int t = a[l];
-        a[l] = a[k];
-        a[k] = t;
-        int m = partition2(a, l, r);
-        quickSort(a, l, m - 1);
-        quickSort(a, m + 1, r);
-        
-    }
-
-    public static void main(String[] args) {
+	    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int W, n;
         W = scanner.nextInt();
