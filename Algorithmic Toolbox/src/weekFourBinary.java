@@ -36,6 +36,9 @@ public class weekFourBinary {
 		}
 		return p;
 	}
+	
+	 
+	
 	public static void main(String[] args) {
         
 		FastScanner scanner = new FastScanner(System.in);
