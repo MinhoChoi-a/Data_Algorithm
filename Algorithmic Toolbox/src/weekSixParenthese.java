@@ -8,8 +8,8 @@ public class weekSixParenthese {
 		
 		char[] operation = new char[length-1];
 		
-		int[][] min = new int[length][length];
-		int[][] max = new int[length][length];
+		long[][] min = new long[length][length];
+		long[][] max = new long[length][length];
 		
 		for(int i=0; i<length; i++) {
 			for(int y=0; y<length; y++) {
@@ -19,7 +19,7 @@ public class weekSixParenthese {
 		}
 		
 		int j = 0;
-		int[] array = new int[4];
+		long[] array = new long[4];
 		
 		int p = 1;
 		for(int i=0; i< length-1; i++) {
@@ -40,10 +40,10 @@ public class weekSixParenthese {
 				
 				j = i+s;
 				
-				int minNum= Integer.MAX_VALUE, maxNum= Integer.MIN_VALUE;
+				long minNum= Long.MAX_VALUE, maxNum= Long.MIN_VALUE;
 				for(int k=i; k<=j-1; k++) {
 					
-					int a=0,b=0,c=0,d=0;
+					long a=0,b=0,c=0,d=0;
 					
 					if(operation[k]=='+') {
 					
@@ -78,8 +78,8 @@ public class weekSixParenthese {
 						
 						for(int t=0; t<4-x; t++) {
 						
-						int before = array[t];
-						int after = array[t+1];
+						long before = array[t];
+						long after = array[t+1];
 						
 						if(before>after) {
 							array[t] = after;
