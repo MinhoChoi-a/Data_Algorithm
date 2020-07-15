@@ -18,8 +18,6 @@ public class weekSixParenthese {
 			}
 		}
 		
-		
-		
 		int j = 0;
 		int[] array = new int[4];
 		
@@ -36,14 +34,13 @@ public class weekSixParenthese {
 			p=p+2;
 		}
 		
-		for(int s=1; s<length-1; s++) {
+		for(int s=1; s<=length-1; s++) {
 			
 			for(int i=0; i<length-s; i++) {
 				
 				j = i+s;
 				
-				int minNum, maxNum;
-				
+				int minNum= Integer.MAX_VALUE, maxNum= Integer.MIN_VALUE;
 				for(int k=i; k<=j-1; k++) {
 					
 					int a=0,b=0,c=0,d=0;
@@ -77,9 +74,9 @@ public class weekSixParenthese {
 					array[2] = c;
 					array[3] = d;
 					
-					for(int x=0; x<4; x++) {
+					for(int x=1; x<4; x++) {
 						
-						for(int t=0; t<3-x; t++) {
+						for(int t=0; t<4-x; t++) {
 						
 						int before = array[t];
 						int after = array[t+1];
@@ -90,15 +87,14 @@ public class weekSixParenthese {
 							}
 						}
 					}
-				
-					if(minNum>array[0]) {
+					
+					if(minNum > array[0]) {
 						minNum = array[0];
 					}
 					
-					if(maxNum<array[3]) {
+					if(maxNum < array[3]) {
 						maxNum = array[3];
 					}
-					
 				}
 				
 				min[i][j] = minNum;
