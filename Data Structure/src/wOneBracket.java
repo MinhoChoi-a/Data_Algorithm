@@ -32,6 +32,7 @@ class wOneBracket  {
         Stack<Bracket> opening_brackets_stack = new Stack<Bracket>();
         
         String suc = "Success";
+        int wPosition = 0;
         
         for (int position = 0; position < text.length(); ++position) {
             char next = text.charAt(position);
@@ -47,28 +48,36 @@ class wOneBracket  {
             if (next == ')' || next == ']' || next == '}') {
                 
             	if(opening_brackets_stack.empty()) {
-                	System.out.println("Success");
+            		System.out.println(position+1);
                 	return;
                 }
             	
+            	if((opening_brackets_stack.peek()).Match(next)) {
+            		opening_brackets_stack.pop();
+            	}
+            	
+            	else {
+            		System.out.println(position+1);
+            		return;
+            	}
+            	
+            	
+            	/**
             	for(int i =0; i< opening_brackets_stack.size(); i++) {
             	
             	if ((opening_brackets_stack.get(i)).Match(next)) {
             		opening_brackets_stack.remove(i);
+            		*/
+            		
             	}
-            	
             	}
-            	
-            }
-        }
-        
-        
+         
         if(opening_brackets_stack.empty()) {
         	System.out.println("Success");
         }
         
         else {
-        	System.out.println((opening_brackets_stack.get(0)).position+1);
+        	System.out.println(opening_brackets_stack.pop().position+1);
         }
     }
 }
