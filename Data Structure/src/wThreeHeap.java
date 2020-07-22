@@ -37,13 +37,13 @@ public class wThreeHeap {
     	    	
     	int left = 2*d+1;
     	
-    	if(left <= data.length-2 && data[left] < data[d]) {
+    	if(left <= data.length-1 && data[left] < data[maxIndex]) {
     		maxIndex = left;
     	}
     	
     	int right = 2*d+2;
     	
-    	if(right <= data.length-2 && data[right] < data[d]) {
+    	if(right <= data.length-1 && data[right] < data[maxIndex]) {
     		maxIndex = right;
     	}
     	
@@ -51,7 +51,7 @@ public class wThreeHeap {
     		int tmp = data[d];
             data[d] = data[maxIndex];
             data[maxIndex] = tmp;
-            swaps.add(new Swap(maxIndex, d));
+            swaps.add(new Swap(d, maxIndex));
             SiftDown(maxIndex);
     	}
     	
