@@ -1,14 +1,9 @@
-//https://github.com/jhines2k7/coursera/blob/master/data-structures-algorithms/week-two/solutions/JobQueue.java
-
-
 import java.io.*;
-import java.util.ArrayList;
 import java.util.StringTokenizer;
-
-import wThreeHeap.Swap;
 
 public class wThreeJobQue {
     private int numWorkers;
+    private Worker[] workers;
     private int[] jobs;
 
     private int[] assignedWorker;
@@ -16,6 +11,18 @@ public class wThreeJobQue {
 
     private FastScanner in;
     private PrintWriter out;
+
+    static class Worker {
+        public int id;
+        public int jobId;
+        public int nextFreeTime;
+
+        public Worker(int id, int nextFreeTime, int jobId) {
+            this.id = id;
+            this.nextFreeTime = nextFreeTime;
+            this.jobId = jobId;
+        }
+    }
 
     public static void main(String[] args) throws IOException {
         new wThreeJobQue().solve();
@@ -35,66 +42,82 @@ public class wThreeJobQue {
             out.println(assignedWorker[i] + " " + startTime[i]);
         }
     }
-    
-    
-    private void SiftDown(int d) { 
-    	
-    	int maxIndex = d;
-    	    	
-    	int needTime = jobs[d];
-    	
-    	
-    	
-    	if(left <= data.length-1 && data[left] < data[maxIndex]) {
-    		maxIndex = left;
-    	}
-    	
-    	int right = 2*d;
-    	
-    	if(right <= data.length-1 && data[right] < data[maxIndex]) {
-    		maxIndex = right;
-    	}
-    	
-    	if(d != maxIndex) {
-    		int tmp = data[d];
-            data[d] = data[maxIndex];
-            data[maxIndex] = tmp;
-            swaps.add(new Swap(d, maxIndex));
-            SiftDown(maxIndex);
-    	}
-    	
-    	
+
+    private int leftChild(int i) {
+        return (2 * i) + 1;
     }
-    
-    
-    private void assignJobs() {
-        
-    	assignedWorker = new int[jobs.length];
-        startTime = new long[jobs.length];
-    	
-    	int size = jobs.length;
-    	
-    	for(int i = size/numWorkers; i >= 0; i--) {
-    		SiftDown(i);
-    	}
-    	
-    	
-    	
-    	
-    	// TODO: replace this code with a faster algorithm.
-        
-        long[] nextFreeTime = new long[numWorkers];
-        for (int i = 0; i < jobs.length; i++) {
-            int duration = jobs[i];
-            int bestWorker = 0;
-            for (int j = 0; j < numWorkers; ++j) {
-                if (nextFreeTime[j] < nextFreeTime[bestWorker])
-                    bestWorker = j;
-            }
-            assignedWorker[i] = bestWorker;
-            startTime[i] = nextFreeTime[bestWorker];
-            nextFreeTime[bestWorker] += duration;
+
+    private int rightChild(int i) {
+        return (2 * i) + 2;
+    }
+
+    private int parent(int i) {
+        return (int)Math.floor(i - 1) / 2;
+    }
+
+    private void buildHeap() {
+        for(int i = (int)Math.floor((numWorkers - 2) / 2); i >= 0; i--) {
+            siftDown(i);
         }
+    }
+
+    private void siftUp(int i) {
+        while(i > 1 && workers[parent(i)].nextFreeTime < workers[i].nextFreeTime) {
+            Worker temp = workers[parent(i)];
+            workers[i] = workers[parent(i)];
+            workers[parent(i)] = temp;
+        }
+    }
+
+    private void changePriority(int i, int freeTime) {
+        int oldFreeTime = workers[i].nextFreeTime;
+
+        workers[i].nextFreeTime = freeTime;
+
+        if(freeTime > oldFreeTime) {
+            siftUp(i);
+        } else {
+            siftDown(i);
+        }
+    }
+
+    private void siftDown(int i) {
+        int maxIndex = i;
+        int l, r;
+
+        l = leftChild(i);
+
+        if(l < numWorkers && workers[l].nextFreeTime < workers[maxIndex].nextFreeTime) {
+            maxIndex = l;
+        }
+
+        r = rightChild(i);
+
+        if(r < numWorkers && workers[r].nextFreeTime < workers[maxIndex].nextFreeTime) {
+            maxIndex = r;
+        }
+
+        if(i != maxIndex) {
+            Worker temp = workers[maxIndex];
+            workers[maxIndex] = workers[i];
+            workers[i] = temp;
+
+            siftDown(maxIndex);
+        }
+    }
+
+    private void assignJobs() {
+        // TODO: replace this code with a faster algorithm.
+        workers = new Worker[numWorkers];
+        assignedWorker = new int[jobs.length];
+        startTime = new long[jobs.length];
+        long[] nextFreeTime = new long[numWorkers];
+
+        for (int j = 0; j < numWorkers; j++) {
+            workers[j] = new Worker(j, jobs[j], j);
+        }
+
+        buildHeap();
     }
 
     public void solve() throws IOException {
