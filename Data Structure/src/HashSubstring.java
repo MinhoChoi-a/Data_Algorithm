@@ -23,7 +23,7 @@ public class HashSubstring {
     }
 
     private static void printOccurrences(List<Integer> ans) throws IOException {
-        for (Integer cur : ans) {
+        for (int cur : ans) {
             out.print(cur);
             out.print(" ");
         }
@@ -34,23 +34,22 @@ public class HashSubstring {
         
         List<Integer> point = new ArrayList<Integer>();
         
-        long hashP = input.hashFunction(p);
+        Long[] hashList = input.PreComputeHash();
         
-        int lengthS = (input.text).length();
-        int lengthP = (input.pattern).length();
+        long hashCheck = input.hashFunction(p);
         
-        for(int i=0; i <= lengthS - lengthP; i++) {
+        for(int i=0; i < hashList.length; i++) {
         	
-        	String check = t.substring(i, i + lengthP);
-        	long hashC = input.hashFunction(check);
+        	if(hashList[i] == hashCheck) {
         		
-        		if(hashP == hashC) {
-        			if(p.equals(check)) {
-        				point.add(i);
-        			}
+        		if(p.equals(t.substring(i, i+p.length()))) {
+        			point.add(i);
         		}
-        }
-        
+        		
+        	}
+        		
+        	}
+        					
         return point;
         
     }     
@@ -59,28 +58,58 @@ public class HashSubstring {
     static class Data {
         String pattern;
         String text;
+        int prime = 100000007;
+        int x = 1011;
+        
         public Data(String pattern, String text) {
             this.pattern = pattern;
             this.text = text;
         }
         
-        long hashFunction(String str) {
-        	
-        	int prime = 50077;
-        	int x = 31;
-        	
-        	int hashPrep = 0;
-        	long hashCode = 0;
+        Long hashFunction(String str) {
         	
         	int lengthP = str.length();
         	
-        	for(int i=0; i < lengthP; i++) {
-        		hashPrep = (int)str.charAt(i);
-        		hashCode = (hashCode*x + hashPrep)%prime;
+        	long hashCode = 0;
+        	
+        	for(int i= lengthP -1; i >= 0 ; i--) {
+        		hashCode = (hashCode*x + (int)str.charAt(i)) % prime;
         	}
         	
         	return hashCode;
         }
+        
+        Long[] PreComputeHash() {
+        	
+        	int lengthP = pattern.length();
+        	int lengthS = text.length();
+        	
+        	Long[] hashList = new Long[lengthS - lengthP + 1];	
+        	
+        	String s = text.substring(lengthS - lengthP);
+        	
+        	hashList[lengthS - lengthP] = hashFunction(s);
+        	
+        	long y = 1;
+        	
+        	for (int i =1; i <= lengthP; i++) {
+        		y = (y * x) % prime;
+        	}
+        	
+        	for (int i = lengthS-lengthP-1; i >= 0; i--) {
+        		long preHash = x * hashList[i+1] + text.charAt(i) - y * text.charAt(i+lengthP);
+        		
+        		while (preHash < 0) {
+        			preHash += prime;
+        		}
+        		
+        		hashList[i] = preHash % prime;
+        	}
+        	
+        	return hashList;
+        }
+        
+    	
         
     }
 
@@ -105,4 +134,3 @@ public class HashSubstring {
         }
     }
 }
-
