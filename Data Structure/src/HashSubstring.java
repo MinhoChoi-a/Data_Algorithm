@@ -34,15 +34,15 @@ public class HashSubstring {
         
         List<Integer> point = new ArrayList<Integer>();
         
-        int hashP = input.hashFunction(p);
+        long hashP = input.hashFunction(p);
         
         int lengthS = (input.text).length();
         int lengthP = (input.pattern).length();
         
-        for(int i=0; i < lengthS - lengthP - 1; i++) {
+        for(int i=0; i <= lengthS - lengthP; i++) {
         	
-        	String check = t.substring(i, i + lengthP - 1);
-        	int hashC = input.hashFunction(check);
+        	String check = t.substring(i, i + lengthP);
+        	long hashC = input.hashFunction(check);
         		
         		if(hashP == hashC) {
         			if(p.equals(check)) {
@@ -64,20 +64,22 @@ public class HashSubstring {
             this.text = text;
         }
         
-        int hashFunction(String str) {
+        long hashFunction(String str) {
+        	
+        	int prime = 50077;
+        	int x = 31;
         	
         	int hashPrep = 0;
-        	String hashCode = "";
-        	int lengthT = text.length();
+        	long hashCode = 0;
+        	
         	int lengthP = str.length();
         	
-        	for(int i=0; i < str.length(); i++) {
+        	for(int i=0; i < lengthP; i++) {
         		hashPrep = (int)str.charAt(i);
-        		hashPrep = hashPrep* lengthT^ (lengthP - i - 1);
-        		hashCode += String.format("%d", hashPrep);
+        		hashCode = (hashCode*x + hashPrep)%prime;
         	}
         	
-        	return Integer.parseInt(hashCode);
+        	return hashCode;
         }
         
     }
