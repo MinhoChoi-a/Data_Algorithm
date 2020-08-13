@@ -51,12 +51,40 @@ public class tree_orders {
 			}
 		}
 		
+		void inMethod(int i, ArrayList<Integer> result) {
+			
+			if(left[i] != -1) {
+				inMethod(left[i], result);
+			}
+				result.add(key[i]);
+			
+			if(right[i] != -1) {
+				inMethod(right[i], result);
+			}	
+		}
+		
+		void postMethod(int i, ArrayList<Integer> result) {
+			if(left[i] != -1) {
+				postMethod(left[i], result);
+			}
+				
+			if(right[i] != -1) {
+				postMethod(right[i], result);
+			}
+			
+			result.add(key[i]);
+			
+		}
+		
+		
+		
 		List<Integer> inOrder() {
 			ArrayList<Integer> result = new ArrayList<Integer>();
                         // Finish the implementation
                         // You may need to add a new recursive method to do that
-            
-			result.add(999);
+            int root =0;
+			
+			inMethod(root, result);
 			
 			return result;
 		}
@@ -78,7 +106,9 @@ public class tree_orders {
                         // Finish the implementation
                         // You may need to add a new recursive method to do that
             
-			result.add(999);
+			int root = 0;
+			
+			postMethod(root, result);
 			
 			return result;
 		}
