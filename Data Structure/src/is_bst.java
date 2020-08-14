@@ -36,7 +36,7 @@ public class is_bst {
         int nodes;
         boolean check = true;
         Node[] tree;
-
+        
         void read() throws IOException {
             FastScanner in = new FastScanner();
             nodes = in.nextInt();
@@ -45,75 +45,52 @@ public class is_bst {
                 tree[i] = new Node(in.nextInt(), in.nextInt(), in.nextInt());
             }
         }
-        
-        void preMethod(int i, int small, int big) {
+
+        void inMethod(int i,int min, int max) {
 			
-        	if(tree[i].left != -1) {
-				if(tree[tree[i].left].key > tree[i].key) {
-					check = false;
-				}
-				
-				preMethod(tree[i].left, small, big);
-			}
-			
-			if(tree[i].right != -1) {
-				if(tree[tree[i].right].key < tree[i].key || tree[tree[i].left].key < small) {
-					check = false;
-				}
-				
-				preMethod(tree[i].right, small, big);
-			}
-		}
-		
-        void inMethod(int i, ArrayList<Integer> result) {
-			
+        	if(check) {
+        	
         		if(tree[i].left != -1) {
         			
-        			if(tree[tree[i].left].key > tree[i].key) {
+        			if(tree[tree[i].left].key >= tree[i].key) {
+        				check=false;
+            			return;
+        			}
+        			        			
+        			if(tree[tree[i].left].key >= max || tree[tree[i].left].key <= min) {
             			check=false;
             			return; }
             		
-        			inMethod(tree[i].left, result);
-    			}
-        		
-        		result.add(tree[i].key);
+        			inMethod(tree[i].left, min, tree[i].key);
+    				}
         		
         		if(tree[i].right != -1) {
-    				
-        			if(tree[tree[i].right].key < tree[i].key) {
+        			
+        			if(tree[tree[i].right].key <= tree[i].key) {
+        				check=false;
+            			return;
+        			}
+        			
+        			if(tree[tree[i].right].key <= min || tree[tree[i].right].key >= max) {
             			check=false;
             			return;}
-    				
-    				inMethod(tree[i].right, result);
-    			}
+        			
+        			inMethod(tree[i].right, tree[i].key, max);
+    				}
+        		}
         	}
         	
         boolean isBinarySearchTree() {
-        	ArrayList<Integer> result = new ArrayList<Integer>();
         	
         	if(tree.length == 0) {
 	        	return check;
 	        }
-	        
-        	inMethod(0, result);
         	
-        	int index = result.indexOf(tree[0].key);
+            int max = Integer.MAX_VALUE;
+            int min = Integer.MIN_VALUE;
         	
-        	if(check == true) {
-        	
-        	for(int t=0; t < index; t++) {
-        		if(result.get(t) > tree[0].key) {
-        			check = false;
-        		}
-        	}
-        	
-        	for(int q= index+1; q < tree.length; q++) {
-        		if(result.get(q) < tree[0].key ) {
-        			check = false;
-        		}
-        	}
-        	
-        	}
+        	inMethod(0, min, max);
+        	        	
           return check;
         }
     }
