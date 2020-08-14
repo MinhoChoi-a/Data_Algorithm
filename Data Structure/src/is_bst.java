@@ -34,6 +34,7 @@ public class is_bst {
         }
 
         int nodes;
+        boolean check = true;
         Node[] tree;
 
         void read() throws IOException {
@@ -45,43 +46,74 @@ public class is_bst {
             }
         }
         
-        boolean preMethod(int i, boolean check, int small, int big) {
+        void preMethod(int i, int small, int big) {
 			
         	if(tree[i].left != -1) {
-				if(tree[tree[i].left].key > small) {
+				if(tree[tree[i].left].key > tree[i].key) {
 					check = false;
-					return check;
 				}
-				small = tree[tree[i].left].key;
-				preMethod(tree[i].left, check, small, big);
+				
+				preMethod(tree[i].left, small, big);
 			}
 			
 			if(tree[i].right != -1) {
-				if(tree[tree[i].right].key < big) {
+				if(tree[tree[i].right].key < tree[i].key || tree[tree[i].left].key < small) {
 					check = false;
-					return check;
 				}
-				big = tree[tree[i].right].key;
-				preMethod(tree[i].right, check, small, big);
+				
+				preMethod(tree[i].right, small, big);
 			}
-			
-			return check;
 		}
 		
-        
+        void inMethod(int i, ArrayList<Integer> result) {
+			
+        		if(tree[i].left != -1) {
+        			
+        			if(tree[tree[i].left].key > tree[i].key) {
+            			check=false;
+            			return; }
+            		
+        			inMethod(tree[i].left, result);
+    			}
+        		
+        		result.add(tree[i].key);
+        		
+        		if(tree[i].right != -1) {
+    				
+        			if(tree[tree[i].right].key < tree[i].key) {
+            			check=false;
+            			return;}
+    				
+    				inMethod(tree[i].right, result);
+    			}
+        	}
+        	
         boolean isBinarySearchTree() {
-        
-        	boolean check = true;
-	        
+        	ArrayList<Integer> result = new ArrayList<Integer>();
+        	
         	if(tree.length == 0) {
 	        	return check;
 	        }
 	        
-        	int small = tree[0].key; 
-        	int big = tree[0].key; 
+        	inMethod(0, result);
         	
-        	check = preMethod(0, check, small, big);
+        	int index = result.indexOf(tree[0].key);
         	
+        	if(check == true) {
+        	
+        	for(int t=0; t < index; t++) {
+        		if(result.get(t) > tree[0].key) {
+        			check = false;
+        		}
+        	}
+        	
+        	for(int q= index+1; q < tree.length; q++) {
+        		if(result.get(q) < tree[0].key ) {
+        			check = false;
+        		}
+        	}
+        	
+        	}
           return check;
         }
     }
