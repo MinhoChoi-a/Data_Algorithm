@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class is_bst {
+public class is_bst_hard {
     class FastScanner {
         StringTokenizer tok = new StringTokenizer("");
         BufferedReader in;
@@ -57,7 +57,7 @@ public class is_bst {
             			return;
         			}
         			        			
-        			if(tree[tree[i].left].key >= max || tree[tree[i].left].key <= min) {
+        			if(tree[tree[i].left].key >= max || tree[tree[i].left].key < min) {
             			check=false;
             			return; }
             		
@@ -71,7 +71,7 @@ public class is_bst {
             			return;
         			}
         			
-        			if(tree[tree[i].right].key <= min || tree[tree[i].right].key >= max) {
+        			if(tree[tree[i].right].key < min || tree[tree[i].right].key > max) {
             			check=false;
             			return;}
         			
@@ -99,7 +99,7 @@ public class is_bst {
         new Thread(null, new Runnable() {
             public void run() {
                 try {
-                    new is_bst().run();
+                    new is_bst_hard().run();
                 } catch (IOException e) {
                 }
             }
