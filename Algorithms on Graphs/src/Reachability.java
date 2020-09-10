@@ -3,30 +3,28 @@ import java.util.Scanner;
 
 public class Reachability {
 
-    private static ArrayList<Integer> visited = new ArrayList<>();
-
-    private static int reach(ArrayList<Integer>[] adj, int x, int y) {
+    private static int reach(ArrayList<Integer>[] adj, int x, int y, ArrayList<Integer> visited) {
 
         boolean visit = false;
-
-        if(visited.contains(x)) {
-           visit = true;
-        }
-
-        else {
-           visited.add(x);
-        }
-
+        visited.add(x);
 
         for(int  i=0; i < adj[x].size(); i++) {
 
-            if (adj[x].get(i) == y) {
+            visit = false;
+
+            if(adj[x].get(i) == y) {
                 return 1;
             }
 
-            else {
-                if(visit == false) {
-                    reach(adj, adj[x].get(i), y); }
+            if(visited.contains(adj[x].get(i))) {
+                visit = true;
+            }
+
+            if(!visit) {
+               int c = reach(adj, adj[x].get(i), y, visited);
+               if(c == 1) {
+                   return 1;
+               }
             }
         }
         //write your code here
@@ -50,7 +48,9 @@ public class Reachability {
         }
         int x = scanner.nextInt() - 1;
         int y = scanner.nextInt() - 1;
-        System.out.println(reach(adj, x, y));
+
+        ArrayList<Integer> visited = new ArrayList<>();
+        System.out.println(reach(adj, x, y, visited));
     }
 }
 
