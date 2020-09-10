@@ -2,7 +2,21 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Reachability {
+
+    private static ArrayList<Integer> visited = new ArrayList<>();
+
     private static int reach(ArrayList<Integer>[] adj, int x, int y) {
+
+        boolean visit = false;
+
+        if(visited.contains(x)) {
+           visit = true;
+        }
+
+        else {
+           visited.add(x);
+        }
+
 
         for(int  i=0; i < adj[x].size(); i++) {
 
@@ -11,13 +25,13 @@ public class Reachability {
             }
 
             else {
-                reach(adj, adj[x].get(i), y);
+                if(visit == false) {
+                    reach(adj, adj[x].get(i), y); }
             }
         }
         //write your code here
         return 0;
     }
-
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
