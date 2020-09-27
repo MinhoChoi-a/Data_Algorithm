@@ -2,9 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Acyclicity {
-    private static int acyclic(ArrayList<Integer>[] adj, int v, ArrayList<Integer> components, int check) {
-
-        if(check == 0) {
+    private static int acyclic(ArrayList<Integer>[] adj, int v, ArrayList<Integer> components, int check, ArrayList<Integer> visited) {
 
             int i = 0;
             while (check == 0 && i < components.size()) {
@@ -12,23 +10,19 @@ public class Acyclicity {
                 if (components.get(i) == v) {
                     check = 1;
                     return check;
-                } else {
-                    if (adj[components.get(i)].size() > 0) {
-                        check = acyclic(adj, v, adj[components.get(i)], check);
-                    }
                 }
 
+                else {
+
+                    if (adj[components.get(i)].size() > 0 && !visited.contains(components.get(i))) {
+                        visited.add(components.get(i));
+                        check = acyclic(adj, v, adj[components.get(i)], check, visited);
+                    }
+                }
                 i++;
             }
 
-            v++;
-
-            if (v < adj.length) {
-                check = acyclic(adj, v, adj[v], check);
-            }
-
-        }
-        return check;
+            return check;
     }
 
     public static void main(String[] args) {
@@ -46,11 +40,19 @@ public class Acyclicity {
             adj[x - 1].add(y - 1);
         }
 
-        int v = 0;
-        ArrayList<Integer> components = adj[0];
         int check = 0;
 
-        System.out.println(acyclic(adj, v, components, check));
+        int v=0;
+
+        ArrayList<Integer> visited = new ArrayList<>();
+
+        while(v < adj.length && check == 0) {
+            check = acyclic(adj, v, adj[v], check, visited);
+            v++;
+            visited.clear();
+        }
+
+        System.out.println(check);
     }
 }
 
