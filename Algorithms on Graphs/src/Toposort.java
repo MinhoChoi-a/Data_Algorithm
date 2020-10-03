@@ -1,17 +1,22 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
+import java.util.*;
 
 public class Toposort {
 
     private static Integer[] toposort(ArrayList<Integer>[] adj) {
-        ArrayList<Integer> used = new ArrayList<>();
+        Stack<Integer> trace = new Stack<>();
         ArrayList<Integer> order = new ArrayList<>();
 
-        dfs(adj, used, order, 0);
+        Integer[] used = new Integer[adj.length];
 
-        int max = Collections.max(order);
-        int min = Collections.min(order);
+        for(int i=0; i< adj.length; i++) {
+            used[i] = 0;
+        }
+
+        for(int i=0; i < adj.length; i++) {
+            if(used[i]==0) {
+                dfs(adj, trace, order, used,i);
+            }
+        }
 
         Integer[] reverse = new Integer[order.size()];
         int k =0;
@@ -20,51 +25,22 @@ public class Toposort {
             k++;
         }
 
-        for(int i =0; i<adj.length;i++) {
-            if(!order.contains(i)) {
-                if(i < min) {
-                    //put front
-                }
-
-                else if(i>max) {
-                    //put behind
-                }
-
-            }
-        }
-
-
         return reverse;
     }
 
-    private static void dfs(ArrayList<Integer>[] adj, ArrayList<Integer> used, ArrayList<Integer> order, int s) {
+    private static void dfs(ArrayList<Integer>[] adj, Stack<Integer> trace, ArrayList<Integer> order, Integer[] used, int s) {
 
-        if(!used.contains(s)) {
+                used[s] = 1;
 
-            while(s < adj.length) {
+                for (int i = 0; i < adj[s].size(); i++) {
+                        if(used[adj[s].get(i)] == 0) {
+                        dfs(adj, trace, order, used, adj[s].get(i)); }
+                }
 
-                  for (int i = 0; i < adj[s].size(); i++) {
-
-                      if (adj[adj[s].get(i)].size() > 0) {
-                          dfs(adj, used, order, adj[s].get(i));
-                      } else {
-                          used.add(adj[s].get(i));
-                          if (!order.contains(adj[s].get(i))) {
-                              order.add(adj[s].get(i));
-                          }
-                      }
-
-                      if (!order.contains(s)) {
-                          if (!order.contains(s)) {
-                              order.add(s);
-                              used.add(s);
-                          }
-                      }
-                  }
-                s++;
-              }
-            }
+                order.add(s);
     }
+
+
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
